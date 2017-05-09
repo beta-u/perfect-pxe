@@ -1,0 +1,5 @@
+#!ipxe
+
+set http-server http://100.2.36.3/windows
+
+

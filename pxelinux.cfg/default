@@ -1,0 +1,65 @@
+default vesamenu.c32
+#timeout 600
+
+#display boot.msg
+
+prompt 0
+menu clear
+menu background splash.png
+menu title PXE -- 2017-2-28
+menu vshift 4
+menu rows 10
+#menu margin 8
+#menu helpmsgrow 15
+#menu tabmsgrow 13
+
+menu color border * #00000000 #00000000 none
+menu color sel 0 #ffffffff #00000000 none
+menu color title 0 #ff7ba3d0 #00000000 none
+menu color tabmsg 0 #ff3a6496 #00000000 none
+menu color unsel 0 #84b8ffff #00000000 none
+menu color hotsel 0 #84b8ffff #00000000 none
+menu color hotkey 0 #ffffffff #00000000 none
+menu color help 0 #ffffffff #00000000 none
+menu color scrollbar 0 #ffffffff #ff355594 none
+menu color timeout 0 #ffffffff #00000000 none
+menu color timeout_msg 0 #ffffffff #00000000 none
+menu color cmdmark 0 #84b8ffff #00000000 none
+menu color cmdline 0 #ffffffff #00000000 none
+#menu tabmsg Press Tab for full configuration options on menu items.
+menu tabmsg Any question here, ask admin for help.
+
+menu separator # insert an empty line
+menu separator # insert an empty line
+
+label linux
+	menu label > linux
+	kernel vesamenu.c32
+	append images/linux.cfg
+  
+label windows
+	menu label > windows
+	kernel vesamenu.c32
+	append images/windows.cfg
+	
+label kickstart
+	menu label > kickstart
+	kernel vesamenu.c32
+	append images/ks.cfg
+
+label localdisk
+	menu label > localboot
+	localboot 0xffff
+
+#label diskless <n/a>
+#	menu label > diskless
+#	kernel images/diskless/vmlinuz
+#	append initrd=images/diskless/initrd.img ip=dhcp root=/dev/nfsroot rw enforcing=0 nfsroot=./images/diskless/nfsshare vga=normal init=/bin/bash
+
+label DOS 
+	menu label > tools <n/a>
+	kernel images/dos/memdisk
+	initrd images/dos/dostool.img
+	append floppy
+	
+menu end

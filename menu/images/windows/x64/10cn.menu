@@ -1,0 +1,10 @@
+#!ipxe
+dhcp
+
+set boot-url http://100.2.36.3/windows/x64/10cn
+kernel ${boot-url}/wimboot
+initrd ${boot-url}/bootmgr.exe		bootmgr.exe
+initrd ${boot-url}/boot/bcd			bcd
+initrd ${boot-url}/boot/boot.sdi	boot.sdi
+initrd ${boot-url}/boot.wim			boot.wim
+boot

@@ -1,0 +1,14 @@
+for i in {68..50}
+do
+	for j in 64 32
+	do
+		if [ "$j" == "32" ];then 
+			echo "label > centos$i x$j(N/A)" >> centos.cfg
+		else 
+			echo "label > centos$i x$j" >> centos.cfg
+		fi
+		echo "	kernel images/centos/centos${i}_${j}/vmlinuz" >> centos.cfg
+		echo "	append initrd=images/centos/centos${i}_${j}/initrd.img repo=http://100.2.36.3/iso/centos/centos${i}_${j}" >> centos.cfg
+		echo "" >> centos.cfg
+	done
+done

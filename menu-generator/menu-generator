@@ -1,0 +1,111 @@
+#!/bin/bash
+# Program:
+#	Only use to generate PXE menu;
+#	Only for rhel and centos.
+# History:
+#	Author:Lester		2017.3.10
+
+function rhel()
+{
+for i in {73..50}
+do
+	for j in 64 32
+	do
+#		if [ "$j" == "32" ];then 
+#			echo "label > ${os}$i x$j(N/A)" >> ${os}.cfg
+#		else 
+#			echo "label > $os$i x$j" >> ${os}.cfg
+#		fi
+		echo "label > ${os}$i x$j" >> ${os}.cfg
+		echo "	kernel images/$os/${os}${i}_${j}/vmlinuz" >> ${os}.cfg
+		echo "	append initrd=images/$os/${os}${i}_${j}/initrd.img repo=http://100.2.36.3/iso/$os/${os}${i}_${j}" >> ${os}.cfg
+		echo "" >> ${os}.cfg
+	done
+done
+}
+
+function suse()
+{
+for i in 12.2 12.0 11.4 11.3 11.2 11.1 11.0 10.4 10.3 10.2 10.0
+do
+	for j in 64 32
+	do
+		if [ "$j" == "32" ];then 
+			echo "label > ${os}$i x$j(N/A, you could try!)" >> ${os}.cfg
+		else 
+			echo "label > $os$i x$j" >> ${os}.cfg
+		fi
+		echo "	kernel images/$os/${os}${i}_${j}/linux" >> ${os}.cfg
+		echo "	append initrd=images/$os/${os}${i}_${j}/initrd splash=silent showopts" >> ${os}.cfg
+		echo "" >> ${os}.cfg
+	done
+done
+}
+
+function ubuntu()
+{
+for i in 16.04 14.04 12.04
+do
+	echo "label > $os$i" >> ${os}.cfg
+	echo "	kernel images/$os/$i/linux" >> ${os}.cfg
+	echo "	append initrd=images/$os/$i/initrd.gz devfs-nomount ramdisksize=16384 vga=normal" >> ${os}.cfg
+	echo "" >> ${os}.cfg
+done
+}
+
+#  ------------- MAIN -----------------------
+read -p "Select the system you want to generate for:(rhel,centos,suse,ubuntu) " os
+
+cat > ${os}.cfg << EOF
+#timeout 300
+prompt 0
+menu clear
+menu background splash.png
+menu title redhat installation
+
+
+menu color border * #00000000 #00000000 none
+menu color sel 0 #ffffffff #00000000 none
+menu color title 0 #ff7ba3d0 #00000000 none
+menu color tabmsg 0 #ff3a6496 #00000000 none
+menu color unsel 0 #84b8ffff #00000000 none
+menu color hotsel 0 #84b8ffff #00000000 none
+menu color hotkey 0 #ffffffff #00000000 none
+menu color help 0 #ffffffff #00000000 none
+menu color scrollbar 0 #ffffffff #ff355594 none
+menu color timeout 0 #ffffffff #00000000 none
+menu color timeout_msg 0 #ffffffff #00000000 none
+menu color cmdmark 0 #84b8ffff #00000000 none
+menu color cmdline 0 #ffffffff #00000000 none
+menu tabmsg press tab for full configuration options on menu items.
+
+menu separator # insert an empty line
+
+label up
+menu label > ..
+	kernel vesamenu.c32
+	append images/linux.cfg
+
+EOF
+case $os in
+"rhel")
+	rhel
+	;;
+"centos")
+	rhel
+	;;
+"suse")
+	suse
+	;;
+"ubuntu")
+	ubuntu
+	;;
+*)
+	echo "OS not supported!"
+	exit 1
+	;;
+esac
+echo "Generate done!"
+#-----------------	End --------------------
+
+

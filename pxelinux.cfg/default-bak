@@ -1,0 +1,46 @@
+default vesamenu.c32
+prompt 0
+allowoption 0
+#timeout 600
+#noescape 1
+
+#menu shiftkey 1
+menu background haha.png
+menu title pxe server by lester. 2016/9/9
+
+label local
+menu label boot from local disk
+	localboot -1
+
+label linux 
+	menu label > linux installation
+	kernel vesamenu.c32
+	append menuconf/linux.conf
+	
+label windows 
+	menu label > windows installation (with ipxe)
+	kernel vesamenu.c32
+	append menuconf/windows.conf
+	
+label  > incloud sphere
+	kernel /iso/incloud/mboot.c32
+	append /iso/incloud/boot/xen.gz dom0_max_vcpus=1-2 dom0_mem=1024m,max:1024m com1=115200,8n1 console=com1,vga --- /iso/incloud/boot/vmlinuz xencons=hvc console=hvc0 console=tty0 --- /iso/incloud/install.img
+	
+label grub4dos
+	menu label > grub4dos (can't use for now)
+	kernel grldr.0
+	
+#label hddutils
+#	menu label > utilitaires de ^disques dur
+#	kernel vesamenu.c32
+#	append menuconf/diskutil.conf
+	
+label easytools
+	menu label > easytools (can't use for now)
+	kernel vesamenu.c32
+	append menuconf/easytools.conf
+
+label part
+    menu label > partition tools (can't use for now)
+    kernel vesamenu.c32
+    append menuconf/part.conf 

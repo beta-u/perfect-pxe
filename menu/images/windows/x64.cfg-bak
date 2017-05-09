@@ -1,0 +1,78 @@
+#timeout 300
+prompt 0
+menu clear
+menu background splash.png
+menu vshift 4
+menu rows 12
+
+menu color border * #00000000 #00000000 none
+menu color sel 0 #ffffffff #00000000 none
+menu color title 0 #ff7ba3d0 #00000000 none
+menu color tabmsg 0 #ff3a6496 #00000000 none
+menu color unsel 0 #84b8ffff #00000000 none
+menu color hotsel 0 #84b8ffff #00000000 none
+menu color hotkey 0 #ffffffff #00000000 none
+menu color help 0 #ffffffff #00000000 none
+menu color scrollbar 0 #ffffffff #ff355594 none
+menu color timeout 0 #ffffffff #00000000 none
+menu color timeout_msg 0 #ffffffff #00000000 none
+menu color cmdmark 0 #84b8ffff #00000000 none
+menu color cmdline 0 #ffffffff #00000000 none
+#menu tabmsg press tab for full configuration options on menu items.
+menu tabmsg
+
+menu separator # insert an empty line
+menu separator # insert an empty line
+
+#menu shiftkey 1
+menu title windows x64 os installation
+
+label up
+	menu label > ..
+	kernel vesamenu.c32
+	append images/windows.cfg
+	
+label > windows 2016(cn)
+	kernel ipxe.lkrn
+	append initrd=/images/windows/x64/2016cn.menu
+
+label > windows 2016(en)
+	kernel ipxe.lkrn
+	append initrd=/images/windows/x64/2016en.menu
+
+label > windows 2012r2(cn)
+	kernel ipxe.lkrn
+	append initrd=/images/windows/x64/2012r2cn.menu
+
+label > windows 2012r2(en)
+	kernel ipxe.lkrn
+	append initrd=/images/windows/x64/2012r2en.menu
+
+label > windows 2012(cn)
+	kernel ipxe.lkrn
+	append initrd=/images/windows/x64/2012cn.menu
+
+label > windows 2012(en)
+	kernel ipxe.lkrn
+	append initrd=images/windows/x64/2012en.menu
+
+label > windows 2008r2(cn)
+	kernel ipxe.lkrn
+	append initrd=images/windows/x64/2008r2cn.menu
+
+label > windows 2008r2(en)
+	kernel ipxe.lkrn
+	append initrd=images/windows/x64/2008r2en.menu
+
+label > windows 2008(cn)
+	kernel ipxe.lkrn
+	append initrd=images/windows/x64/2008cn.menu
+
+label > windows 2008(en)
+	kernel ipxe.lkrn
+	append initrd=images/windows/x64/2008en.menu
+
+label > windows 10(cn)
+	kernel ipxe.lkrn
+	append initrd=/images/windows/x64/10cn.menu
+
